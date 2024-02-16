@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,7 +9,7 @@ export class HomePage {
   inputNumbers: string = '';
   convertedNumbersArray: string[] = [];
 
-  constructor(private alertController: AlertController) {}
+  constructor(private toastController: ToastController) {}
 
   convertNumbers() {
     // Sử dụng regex để lấy ra các con số từ dãy nhập vào
@@ -43,7 +43,7 @@ export class HomePage {
     document.execCommand('copy');
     document.body.removeChild(textarea);
 
-    this.presentCopyAlert(number);
+    this.presentCopyToast(number);
   }
 
   copyAllToClipboard() {
@@ -56,17 +56,18 @@ export class HomePage {
     document.execCommand('copy');
     document.body.removeChild(textarea);
 
-    this.presentCopyAlert('Tất cả số');
+    this.presentCopyToast('Tất cả số');
   }
 
-  async presentCopyAlert(text: string) {
-    const alert = await this.alertController.create({
-      header: 'Đã sao chép',
-      subHeader: text,
-      buttons: ['OK']
+  async presentCopyToast(text: string) {
+    const toast = await this.toastController.create({
+      message: `Đã sao chép: ${text}`,
+      duration: 2000,
+      position: 'bottom',
+      color: 'success' // optional: you can customize the color
     });
 
-    await alert.present();
+    toast.present();
   }
 
 }
