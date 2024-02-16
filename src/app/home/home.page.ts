@@ -32,6 +32,7 @@ export class HomePage {
   autoConvertNumbers() {
     // Gọi hàm chuyển đổi khi có bất kỳ thay đổi nào trong ô input
     this.convertNumbers();
+    this.copyAllToClipboard();
   }
 
   copyToClipboard(number: string) {
