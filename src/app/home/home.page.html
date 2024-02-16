@@ -7,7 +7,7 @@
   <ion-button expand="full" color="medium" (click)="clearInput()">Clear</ion-button>
 
   <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
-    <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button>
+    <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
     <ion-item *ngFor="let number of convertedNumbersArray">
       {{ number }}
       <ion-button fill="clear" (click)="copyToClipboard(number)">Copy</ion-button>
