@@ -12,7 +12,10 @@
     <ion-input [(ngModel)]="inputNumbers" type="text"></ion-input>
   </ion-item>
 
-  <ion-button expand="full" (click)="convertNumbers()">Chuyển đổi</ion-button>
+  <ion-button expand="full" (click)="convertNumbers()"><ion-icon name="construct-outline"></ion-icon> Chuyển đổi</ion-button>
+
+  <ion-button expand="full" color="medium" (click)="clearInput()"><ion-icon name="trash-outline"></ion-icon> Làm mới</ion-button>
+
 
   <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
     <ion-item *ngFor="let number of convertedNumbersArray">

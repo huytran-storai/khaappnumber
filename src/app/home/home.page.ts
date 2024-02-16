@@ -18,4 +18,8 @@ export class HomePage {
       this.convertedNumbersArray = [];
     }
   }
+  clearInput() {
+    this.inputNumbers = '';
+    this.convertedNumbersArray = [];
+  }
 }
