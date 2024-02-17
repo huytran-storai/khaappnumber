@@ -16,8 +16,11 @@ export class HomePage {
     const numbersArray = this.inputNumbers.match(/\d+/g);
 
     if (numbersArray) {
-      // Gán mảng số vào biến convertedNumbersArray để hiển thị trong bảng
-      this.convertedNumbersArray = numbersArray;
+      this.convertedNumbersArray = numbersArray.map(number => {
+        // Lấy 2 số cuối cùng của mỗi số
+        const lastTwoDigits = number.slice(-2);
+        return lastTwoDigits;
+      });
     } else {
       this.convertedNumbersArray = [];
     }

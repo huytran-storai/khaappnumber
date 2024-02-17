@@ -8,6 +8,9 @@
 
   <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
     <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
+    <ion-text color="danger">
+      <h2>Chúc may mắn!</h2>
+    </ion-text>
     <ion-item *ngFor="let number of convertedNumbersArray">
       {{ number }}
       <ion-button fill="clear" (click)="copyToClipboard(number)">Copy</ion-button>
