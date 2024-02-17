@@ -1,24 +1,33 @@
 <ion-content class="ion-padding">
-  <ion-item>
-    <ion-label position="stacked">Nhập dãy số</ion-label>
-    <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()"></ion-input>
-  </ion-item>
+  <ion-row>
+    <ion-col>
+      <ion-row>
+        <ion-item>
+          <ion-label position="stacked">Nhập dãy số</ion-label>
+          <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()"></ion-input>
+        </ion-item>
+        <ion-button expand="full" color="medium" (click)="clearInput()">Clear</ion-button>
+      </ion-row>
+    </ion-col>
 
-  <ion-button expand="full" color="medium" (click)="clearInput()">Clear</ion-button>
-
-  <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
-    <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
-    <ion-text color="danger">
-      <h2>Chúc may mắn!</h2>
-    </ion-text>
-    <ion-item *ngFor="let number of convertedNumbersArray">
-      {{ number }}
-      <ion-button fill="clear" (click)="copyToClipboard(number)">Copy</ion-button>
-    </ion-item>
-  </ion-list>
-
-  <ion-item *ngIf="!convertedNumbersArray || convertedNumbersArray.length === 0">
-    <ion-label position="stacked">Kết quả</ion-label>
-    <ion-input value="Không có số nào được tìm thấy" readonly="true"></ion-input>
-  </ion-item>
+  <ion-col>
+    <ion-row>
+      <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
+        <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
+        <ion-text color="danger">
+          <h2>Chúc may mắn!</h2>
+        </ion-text>
+        <ion-item *ngFor="let number of convertedNumbersArray">
+          {{ number }}
+          <ion-button fill="clear" (click)="copyToClipboard(number)">Copy</ion-button>
+        </ion-item>
+      </ion-list>
+    
+      <ion-item *ngIf="!convertedNumbersArray || convertedNumbersArray.length === 0">
+        <ion-label position="stacked">Kết quả</ion-label>
+        <ion-input value="Không có số nào được tìm thấy" readonly="true"></ion-input>
+      </ion-item>
+    </ion-row>
+  </ion-col>
+  </ion-row>
 </ion-content>
