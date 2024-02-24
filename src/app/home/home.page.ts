@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+
   inputNumbers: string = '';
   convertedNumbersArray: string[] = [];
-
+  flashLabel: boolean = false;
+  fallingObjects: any[] = [];
   constructor(private toastController: ToastController) {}
 
+  ngOnInit() {
+    this.flashLabel = true;
+    for (let i = 0; i < 100; i++) {
+      this.fallingObjects.push({});
+    }
+  }
+  
   convertNumbers() {
     // Sử dụng regex để lấy ra các con số từ dãy nhập vào
     const numbersArray = this.inputNumbers.match(/\d+/g);

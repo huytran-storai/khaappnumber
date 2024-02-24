@@ -3,19 +3,24 @@
     <ion-col>
       <ion-row>
         <ion-item>
-          <ion-label position="stacked">Nhập dãy số</ion-label>
+          <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu </ion-label>
           <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()"></ion-input>
         </ion-item>
-        <ion-button expand="full" color="medium" (click)="clearInput()">Clear</ion-button>
+        <ion-button expand="full" color="medium" (click)="clearInput()">CLEAR</ion-button>
       </ion-row>
+
     </ion-col>
 
   <ion-col>
     <ion-row>
       <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
+        <div class="pyro">
+          <div class="before"></div>
+          <div class="after"></div>
+        </div>
         <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
         <ion-text color="danger">
-          <h2>Chúc may mắn!</h2>
+          <h2>CUNG HỶ PHÁT TÀI!</h2>
         </ion-text>
         <ion-item *ngFor="let number of convertedNumbersArray">
           {{ number }}
@@ -25,7 +30,7 @@
     
       <ion-item *ngIf="!convertedNumbersArray || convertedNumbersArray.length === 0">
         <ion-label position="stacked">Kết quả</ion-label>
-        <ion-input value="Không có số nào được tìm thấy" readonly="true"></ion-input>
+        <ion-input value="Không có dữ liệu" readonly="true"></ion-input>
       </ion-item>
     </ion-row>
   </ion-col>
