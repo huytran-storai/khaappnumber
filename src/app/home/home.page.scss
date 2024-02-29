@@ -73,6 +73,13 @@ body {
   overflow: hidden;
 }
 
+.bg-monney {
+  width: 120px;
+  height: 800px;
+  background-image: url("../../assets/monney.gif");
+  background-repeat: no-repeat;
+}
+
 .pyro > .before, .pyro > .after {
   position: absolute;
   width: 5px;
