@@ -8,31 +8,35 @@
         </ion-item>
         <ion-button expand="full" color="medium" (click)="clearInput()">CLEAR</ion-button>
       </ion-row>
+      <ion-row>
+        <ion-img src="../../assets/giphy.gif"
+          alt="The Wisconsin State Capitol building in Madison, WI at night"></ion-img>
+      </ion-row>
 
     </ion-col>
 
-  <ion-col>
-    <ion-row>
-      <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
-        <div class="pyro">
-          <div class="before"></div>
-          <div class="after"></div>
-        </div>
-        <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
-        <ion-text color="danger">
-          <h2>CUNG HỶ PHÁT TÀI!</h2>
-        </ion-text>
-        <ion-item *ngFor="let number of convertedNumbersArray">
-          {{ number }}
-          <ion-button fill="clear" (click)="copyToClipboard(number)">Copy</ion-button>
+    <ion-col>
+      <ion-row>
+        <ion-list *ngIf="convertedNumbersArray && convertedNumbersArray.length > 0">
+          <div class="pyro">
+            <div class="before"></div>
+            <div class="after"></div>
+          </div>
+          <!-- <ion-button expand="full" (click)="copyAllToClipboard()">Copy All</ion-button> -->
+          <ion-text color="danger">
+            <h2>CUNG HỶ PHÁT TÀI!</h2>
+          </ion-text>
+          <ion-item *ngFor="let number of convertedNumbersArray">
+            {{ number }}
+            <ion-button fill="clear" (click)="copyToClipboard(number)">Copy</ion-button>
+          </ion-item>
+        </ion-list>
+
+        <ion-item *ngIf="!convertedNumbersArray || convertedNumbersArray.length === 0">
+          <ion-label position="stacked">Kết quả</ion-label>
+          <ion-input value="Không có dữ liệu" readonly="true"></ion-input>
         </ion-item>
-      </ion-list>
-    
-      <ion-item *ngIf="!convertedNumbersArray || convertedNumbersArray.length === 0">
-        <ion-label position="stacked">Kết quả</ion-label>
-        <ion-input value="Không có dữ liệu" readonly="true"></ion-input>
-      </ion-item>
-    </ion-row>
-  </ion-col>
+      </ion-row>
+    </ion-col>
   </ion-row>
 </ion-content>

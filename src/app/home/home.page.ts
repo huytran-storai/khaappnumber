@@ -10,14 +10,10 @@ export class HomePage implements OnInit {
   inputNumbers: string = '';
   convertedNumbersArray: string[] = [];
   flashLabel: boolean = false;
-  fallingObjects: any[] = [];
   constructor(private toastController: ToastController) {}
 
   ngOnInit() {
     this.flashLabel = true;
-    for (let i = 0; i < 100; i++) {
-      this.fallingObjects.push({});
-    }
   }
   
   convertNumbers() {
