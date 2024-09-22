@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Thống kê số liệu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-content>
+            <ion-col>
+              <ion-row>
+                <ion-item>
+                  <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu </ion-label>
+                  <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()" type="text" maxlength="6"></ion-input>
+                </ion-item>
+              </ion-row>
+            </ion-col>
+          </ion-card-content>
+          <ion-button expand="full" color="success" (click)="clearInput()">Thêm</ion-button>
+          <ion-text color="warning">Kiên nhẫn thêm nhé ^^</ion-text>
+          <ion-text color="medium"><ion-text>Lần thêm cuối cùng: 22:40:00 - 22/9/2024</ion-text></ion-text>
+        </ion-card-header>
+        <ion-row>
+          <ion-card>
+            <ion-card-header>
+              <ion-text color="medium">Kết quả gợi ý</ion-text>
+              <ion-text color="danger">
+                <h1>8K91</h1>
+              </ion-text>
+              <ion-text color="medium"><ion-text>Lần gợi ý cuối cùng: 22:20:06 - 22/9/2024</ion-text></ion-text>
+
+            </ion-card-header>
+          </ion-card>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Bảng kết quả</ion-card-title>
+          <ion-card-subtitle>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="datetime"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-text id="dataLabel">KJQ9-123755-89K1</ion-text>
+          <ion-row>
+           <ion-button fill="clear" (click)="exportToPDF()">Tải dữ liệu</ion-button>
+          </ion-row>
+        </ion-card-content>
+      
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
