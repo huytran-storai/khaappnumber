@@ -10,16 +10,19 @@
       <ion-card>
         <ion-card-header>
           <ion-card-content>
-            <ion-col>
-              <ion-row>
+            <ion-row>
+              <ion-col size="9">
                 <ion-item>
-                  <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu </ion-label>
-                  <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()" type="text" maxlength="6"></ion-input>
+                  <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu</ion-label>
+                  <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()" type="text"
+                    maxlength="6"></ion-input>
                 </ion-item>
-              </ion-row>
-            </ion-col>
+              </ion-col>
+              <ion-col class="btn-add">
+                <ion-button expand="full" color="success" (click)="clearInput()">Thêm</ion-button>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
-          <ion-button expand="full" color="success" (click)="clearInput()">Thêm</ion-button>
           <ion-text color="warning">Kiên nhẫn thêm nhé ^^</ion-text>
           <ion-text color="medium"><ion-text>Lần thêm cuối cùng: 22:40:00 - 22/9/2024</ion-text></ion-text>
         </ion-card-header>
@@ -31,7 +34,6 @@
                 <h1>8K91</h1>
               </ion-text>
               <ion-text color="medium"><ion-text>Lần gợi ý cuối cùng: 22:20:06 - 22/9/2024</ion-text></ion-text>
-
             </ion-card-header>
           </ion-card>
         </ion-row>
@@ -49,14 +51,14 @@
             </ion-modal>
           </ion-card-subtitle>
         </ion-card-header>
-      
+
         <ion-card-content>
           <ion-text id="dataLabel">KJQ9-123755-89K1</ion-text>
           <ion-row>
-           <ion-button fill="clear" (click)="exportToPDF()">Tải dữ liệu</ion-button>
+            <ion-button fill="clear" (click)="exportToPDF()">Tải dữ liệu</ion-button>
           </ion-row>
         </ion-card-content>
-      
+
       </ion-card>
     </ion-col>
   </ion-row>
