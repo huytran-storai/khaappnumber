@@ -14,26 +14,38 @@
               <ion-col size="9">
                 <ion-item>
                   <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu</ion-label>
-                  <ion-input [(ngModel)]="inputNumbers" type="text" (input)="autoConvertNumbers()" type="text"
-                    maxlength="6"></ion-input>
+                  <ion-input maxlength="6" [(ngModel)]="inputValue" placeholder="Nhập chuỗi 4-6 số" clearInput></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col class="btn-add">
-                <ion-button expand="full" color="success" (click)="clearInput()">Thêm</ion-button>
+                <ion-button expand="full" color="success" (click)="onSubmit()">Thêm</ion-button>
               </ion-col>
             </ion-row>
+            
           </ion-card-content>
-          <ion-text color="warning">Kiên nhẫn thêm nhé ^^</ion-text>
-          <ion-text color="medium"><ion-text>Lần thêm cuối cùng: 22:40:00 - 22/9/2024</ion-text></ion-text>
+          <ion-text color="medium"><p>Lần thêm cuối cùng: {{ lastSubmitTime }}</p></ion-text>
+          <ion-row>
+            <ion-input [(ngModel)]="inputValue" placeholder="Nhập dãy số không giới hạn" clearInput></ion-input>
+          </ion-row>
         </ion-card-header>
         <ion-row>
           <ion-card>
             <ion-card-header>
-              <ion-text color="medium">Kết quả gợi ý</ion-text>
+              <ion-text color="danger">Kết quả gợi ý</ion-text>
               <ion-text color="danger">
-                <h1>8K91</h1>
+                <h1>
+                  <p *ngFor="let suggestion of suggestions">
+                    + {{ suggestion.sequence }} ({{ suggestion.count }} lần)
+                  </p>
+                  <p *ngIf="mostFrequentSequence">
+                    => Số xuất hiện nhiều nhất: {{ mostFrequentSequence }}
+                  </p>
+                </h1>
+                <p *ngIf="!mostFrequentSequence">
+                  <ion-text color="warning">Chưa có kết quả mong muốn</ion-text>
+                </p>
               </ion-text>
-              <ion-text color="medium"><ion-text>Lần gợi ý cuối cùng: 22:20:06 - 22/9/2024</ion-text></ion-text>
+              <!-- <ion-text color="medium"><ion-text>Lần gợi ý cuối cùng: 22:20:06 - 22/9/2024</ion-text></ion-text> -->
             </ion-card-header>
           </ion-card>
         </ion-row>
@@ -42,7 +54,7 @@
     <ion-col>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Bảng kết quả</ion-card-title>
+          <ion-card-title>Bảng kết quả đã nhập</ion-card-title>
           <ion-card-subtitle>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
@@ -53,9 +65,11 @@
         </ion-card-header>
 
         <ion-card-content>
-          <ion-text id="dataLabel">KJQ9-123755-89K1</ion-text>
+          <ion-text id="dataLabel"><p>{{ storedSequence }}</ion-text>
           <ion-row>
-            <ion-button fill="clear" (click)="exportToPDF()">Tải dữ liệu</ion-button>
+            <ion-button color="primary" (click)="exportToPDF()">Tải dữ liệu</ion-button>
+            <ion-button color="danger" (click)="removeCache()">Xóa toàn bộ dữ liệu</ion-button>
+            <ion-button color="warning" [disabled]="true">Sửa dữ liệu (đang bảo trì)</ion-button>
           </ion-row>
         </ion-card-content>
 
