@@ -104,7 +104,9 @@ export class BillsPage implements OnInit {
       }
     }
 
-    this.suggestions = Object.keys(matches).map(seq => ({
+     this.suggestions = Object.keys(matches)
+    .filter(seq => matches[seq] > 1)
+    .map(seq => ({
       sequence: seq,
       count: matches[seq],
     }));
@@ -116,7 +118,7 @@ export class BillsPage implements OnInit {
       this.mostFrequentSequence = '';
     }
   }
-  
+
   removeLastEntry() {
     const parts = this.storedSequence.split('-');
 
