@@ -14,6 +14,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'product-page',
     pathMatch: 'full'
+  },
+  {
+    path: 'bills',
+    loadChildren: () => import('./bills/bills.module').then( m => m.BillsPageModule)
   }
 ];
 
