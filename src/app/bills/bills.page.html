@@ -14,8 +14,9 @@
               <ion-col size="9">
                 <ion-item>
                   <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu</ion-label>
-                  <ion-input maxlength="3" [(ngModel)]="inputValue" placeholder="Nhập chuỗi 3 số"
-                    clearInput></ion-input>
+                  <ion-input maxlength="3" [(ngModel)]="inputValue" placeholder="Nhập chuỗi 3 số" type="tel"
+                    pattern="[0-9]*" inputmode="numeric" clearInput>
+                  </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col class="btn-add">
@@ -34,7 +35,7 @@
               <ion-text>
                 <h1>
                   <p *ngFor="let suggestion of suggestions">
-                    {{ suggestion.sequence }} ({{ suggestion.count }} lần)  {{ suggestion.probability }}%
+                    {{ suggestion.sequence }} ({{ suggestion.count }} lần) {{ suggestion.probability }}%
                   </p>
                   <p *ngIf="mostFrequentSequence">
                     Dự đoán: <ion-text color="success">{{ mostFrequentSequence }}</ion-text>

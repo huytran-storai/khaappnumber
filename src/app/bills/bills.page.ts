@@ -50,7 +50,7 @@ export class BillsPage implements OnInit {
     return value < 10 ? `0${value}` : value.toString();
   }
   onSubmit() {
-    if (this.inputValue) {
+    if (this.inputValue && !isNaN(Number(this.inputValue))) {
       if (this.storedSequence) {
         this.storedSequence += '-' + this.inputValue;
 
