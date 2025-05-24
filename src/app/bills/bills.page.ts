@@ -12,7 +12,7 @@ export class BillsPage implements OnInit {
   convertedNumbersArray: string[] = [];
   inputValue: string = '';  // Chuỗi input từ người dùng
   storedSequence: string = '';  // Chuỗi lưu trong local storage
-  suggestions: Array<{ sequence: string, count: number }> = [];  // Kết quả gợi ý
+  suggestions: Array<{ sequence: string, count: number, probability: any }> = [];  // Kết quả gợi ý
   mostFrequentSequence: string = '';  // Số xuất hiện nhiều nhất
   lastSubmitTime: string = '';
 
@@ -59,7 +59,7 @@ export class BillsPage implements OnInit {
       }
       this.saveToLocalStorage();
 
-      this.inputValue = '';
+      console.log(this.inputValue)
       const now = new Date();
       this.lastSubmitTime = this.formatDateTime(now);
       localStorage.setItem('lastSubmitTime', this.lastSubmitTime);
@@ -87,50 +87,47 @@ export class BillsPage implements OnInit {
   generateSuggestions() {
     const input = this.inputValue;
     const sequenceParts = this.storedSequence.split('-');
-    const matches: any = {};
+    const matches: { [key: string]: number } = {};
 
-    for (let i = 0; i < sequenceParts.length; i++) {
-      const part = sequenceParts[i];
-      const nextPart = sequenceParts[i + 1];  // Lượt sau
+    for (let i = 0; i < sequenceParts.length - 1; i++) {
+      const current = sequenceParts[i];
+      const next = sequenceParts[i + 1];
 
-      if (part.endsWith(input) && nextPart) {
-        // Lấy tối đa 3 chữ số đầu tiên của lượt sau
-        const predicted = nextPart.substring(0, 3);
-        if (!matches[predicted]) {
-          matches[predicted] = 1;
-        } else {
-          matches[predicted]++;
-        }
+      // So khớp chính xác chuỗi nhập (đảm bảo là một phần độc lập, không dính đầu/đuôi)
+      if (current === input && next) {
+        const predicted = next.substring(0, 3); // Lấy tối đa 3 ký tự đầu tiên của chuỗi tiếp theo
+        matches[predicted] = (matches[predicted] || 0) + 1;
       }
     }
-
-     this.suggestions = Object.keys(matches)
-    .filter(seq => matches[seq] > 1)
-    .map(seq => ({
+    const total = Object.values(matches).reduce((acc, val) => acc + val, 0);
+    // Chuyển thành danh sách và chỉ lấy những kết quả có ít nhất 1 lần
+    this.suggestions = Object.keys(matches).map(seq => ({
       sequence: seq,
       count: matches[seq],
+      probability: total > 0 ? Math.round((matches[seq] / total) * 100) : 0
     }));
 
-    if (this.suggestions.length > 0) {
-      this.suggestions.sort((a, b) => b.count - a.count);
-      this.mostFrequentSequence = this.suggestions[0].sequence;
-    } else {
-      this.mostFrequentSequence = '';
-    }
+    // Sắp xếp theo số lần xuất hiện giảm dần
+    this.suggestions.sort((a, b) => b.count - a.count);
+
+    // Gán chuỗi phổ biến nhất
+    this.mostFrequentSequence = this.suggestions.length > 0 ? this.suggestions[0].sequence : '';
+    console.log('Most Frequent Sequence:', this.mostFrequentSequence);
+    this.inputValue = "";  // Reset input sau khi submit
   }
 
   removeLastEntry() {
     const parts = this.storedSequence.split('-');
 
     if (parts.length > 1) {
-      parts.pop(); 
+      parts.pop();
       this.storedSequence = parts.join('-');
     } else {
       this.storedSequence = '';
     }
 
-    this.saveToLocalStorage();        
-    this.loadStoredSequence();      
+    this.saveToLocalStorage();
+    this.loadStoredSequence();
   }
 
 }

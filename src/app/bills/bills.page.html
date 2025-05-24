@@ -27,25 +27,21 @@
           <ion-text color="medium">
             <p>Lần thêm cuối cùng: {{ lastSubmitTime }}</p>
           </ion-text>
-          <ion-row>
-            <ion-input [(ngModel)]="inputValue" placeholder="Nhập dãy số không giới hạn" clearInput></ion-input>
-          </ion-row>
         </ion-card-header>
         <ion-row>
           <ion-card>
             <ion-card-header>
-              <ion-text color="danger">Kết quả gợi ý</ion-text>
-              <ion-text color="danger">
+              <ion-text>
                 <h1>
                   <p *ngFor="let suggestion of suggestions">
-                    + {{ suggestion.sequence }} ({{ suggestion.count }} lần)
+                    {{ suggestion.sequence }} ({{ suggestion.count }} lần)  {{ suggestion.probability }}%
                   </p>
                   <p *ngIf="mostFrequentSequence">
-                    => Số xuất hiện nhiều nhất: {{ mostFrequentSequence }}
+                    Dự đoán: <ion-text color="success">{{ mostFrequentSequence }}</ion-text>
                   </p>
                 </h1>
                 <p *ngIf="!mostFrequentSequence">
-                  <ion-text color="warning">Chưa có kết quả mong muốn</ion-text>
+                  <ion-text color="warning">Chưa xác định được kết quả!</ion-text>
                 </p>
               </ion-text>
             </ion-card-header>
