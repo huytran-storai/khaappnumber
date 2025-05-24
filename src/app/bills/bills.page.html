@@ -14,16 +14,19 @@
               <ion-col size="9">
                 <ion-item>
                   <ion-label position="stacked" [class.color-flash]="flashLabel">Xin mời nhập số liệu</ion-label>
-                  <ion-input maxlength="3" [(ngModel)]="inputValue" placeholder="Nhập chuỗi 3 số" clearInput></ion-input>
+                  <ion-input maxlength="3" [(ngModel)]="inputValue" placeholder="Nhập chuỗi 3 số"
+                    clearInput></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col class="btn-add">
                 <ion-button expand="full" color="success" (click)="onSubmit()">Thêm</ion-button>
               </ion-col>
             </ion-row>
-            
+
           </ion-card-content>
-          <ion-text color="medium"><p>Lần thêm cuối cùng: {{ lastSubmitTime }}</p></ion-text>
+          <ion-text color="medium">
+            <p>Lần thêm cuối cùng: {{ lastSubmitTime }}</p>
+          </ion-text>
           <ion-row>
             <ion-input [(ngModel)]="inputValue" placeholder="Nhập dãy số không giới hạn" clearInput></ion-input>
           </ion-row>
@@ -64,10 +67,15 @@
         </ion-card-header>
 
         <ion-card-content>
-          <ion-text id="dataLabel"><p>{{ storedSequence }}</ion-text>
+          <ion-text id="dataLabel">
+            <p>{{ storedSequence }}
+          </ion-text>
           <ion-row>
             <ion-button color="primary" (click)="exportToPDF()">Tải dữ liệu</ion-button>
             <ion-button color="danger" (click)="removeCache()">Xóa toàn bộ dữ liệu</ion-button>
+            <ion-button color="medium" (click)="removeLastEntry()">
+              Xoá lượt nhập cuối
+            </ion-button>
           </ion-row>
         </ion-card-content>
 

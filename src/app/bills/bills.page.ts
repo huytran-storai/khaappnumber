@@ -6,8 +6,8 @@ import { jsPDF } from 'jspdf';
   templateUrl: './bills.page.html',
   styleUrls: ['./bills.page.scss'],
 })
-export class BillsPage implements OnInit{
- flashLabel: boolean = false;
+export class BillsPage implements OnInit {
+  flashLabel: boolean = false;
   inputNumbers: string = '';
   convertedNumbersArray: string[] = [];
   inputValue: string = '';  // Chuỗi input từ người dùng
@@ -17,7 +17,6 @@ export class BillsPage implements OnInit{
   lastSubmitTime: string = '';
 
   constructor() {
-    this.loadStoredSequence();
     const savedTime = localStorage.getItem('lastSubmitTime');
     if (savedTime) {
       this.lastSubmitTime = savedTime;  // Hiển thị thời gian từ Local Storage
@@ -26,6 +25,7 @@ export class BillsPage implements OnInit{
 
   ngOnInit() {
     this.flashLabel = true;
+    this.loadStoredSequence();
   }
   exportToPDF() {
     const labelValue = (document.getElementById('dataLabel') as HTMLIonLabelElement).innerText;
@@ -51,18 +51,24 @@ export class BillsPage implements OnInit{
   }
   onSubmit() {
     if (this.inputValue) {
-      this.storedSequence += this.inputValue;  // Thêm chuỗi vừa nhập vào dãy đã lưu
+      if (this.storedSequence) {
+        this.storedSequence += '-' + this.inputValue;
+
+      } else {
+        this.storedSequence = this.inputValue;
+      }
       this.saveToLocalStorage();
-      this.generateSuggestions();
-      this.inputValue = '';  // Reset input sau khi submit
+
+      this.inputValue = '';
       const now = new Date();
       this.lastSubmitTime = this.formatDateTime(now);
       localStorage.setItem('lastSubmitTime', this.lastSubmitTime);
+      this.loadStoredSequence();
     }
   }
 
   removeCache() {
-   localStorage.removeItem('storedSequence2');
+    localStorage.removeItem('storedSequence2');
     this.storedSequence = "";
   }
 
@@ -79,36 +85,50 @@ export class BillsPage implements OnInit{
   }
 
   generateSuggestions() {
-  const inputLength = this.inputValue.length;
-  const sequence = this.storedSequence;
-  const matches: any = {};
+    const input = this.inputValue;
+    const sequenceParts = this.storedSequence.split('-');
+    const matches: any = {};
 
-  // Tìm kiếm các chuỗi con trùng khớp và chuỗi theo sau
-  for (let i = 0; i < sequence.length - inputLength; i++) {
-    const subSequence = sequence.substring(i, i + inputLength);
-    const nextSequence = sequence.substring(i + inputLength, i + inputLength + 3);  // CHỈ LẤY 3 SỐ TIẾP THEO
+    for (let i = 0; i < sequenceParts.length; i++) {
+      const part = sequenceParts[i];
+      const nextPart = sequenceParts[i + 1];  // Lượt sau
 
-    if (subSequence === this.inputValue && nextSequence.length === 3) {
-      if (!matches[nextSequence]) {
-        matches[nextSequence] = 1;
-      } else {
-        matches[nextSequence]++;
+      if (part.endsWith(input) && nextPart) {
+        // Lấy tối đa 3 chữ số đầu tiên của lượt sau
+        const predicted = nextPart.substring(0, 3);
+        if (!matches[predicted]) {
+          matches[predicted] = 1;
+        } else {
+          matches[predicted]++;
+        }
       }
     }
+
+    this.suggestions = Object.keys(matches).map(seq => ({
+      sequence: seq,
+      count: matches[seq],
+    }));
+
+    if (this.suggestions.length > 0) {
+      this.suggestions.sort((a, b) => b.count - a.count);
+      this.mostFrequentSequence = this.suggestions[0].sequence;
+    } else {
+      this.mostFrequentSequence = '';
+    }
+  }
+  
+  removeLastEntry() {
+    const parts = this.storedSequence.split('-');
+
+    if (parts.length > 1) {
+      parts.pop(); 
+      this.storedSequence = parts.join('-');
+    } else {
+      this.storedSequence = '';
+    }
+
+    this.saveToLocalStorage();        
+    this.loadStoredSequence();      
   }
 
-  // Định dạng kết quả gợi ý
-  this.suggestions = Object.keys(matches).map(seq => ({
-    sequence: seq,
-    count: matches[seq]
-  }));
-
-  // Tìm số xuất hiện nhiều nhất
-  if (this.suggestions.length > 0) {
-    this.suggestions.sort((a, b) => b.count - a.count);
-    this.mostFrequentSequence = this.suggestions[0].sequence;
-  } else {
-    this.mostFrequentSequence = '';
-  }
-}
 }

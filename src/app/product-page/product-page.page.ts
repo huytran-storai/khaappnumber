@@ -52,11 +52,11 @@ export class ProductPagePage implements OnInit {
     if (this.inputValue) {
       this.storedSequence += this.inputValue;  // Thêm chuỗi vừa nhập vào dãy đã lưu
       this.saveToLocalStorage();
-      this.generateSuggestions();
       this.inputValue = '';  // Reset input sau khi submit
       const now = new Date();
       this.lastSubmitTime = this.formatDateTime(now);
       localStorage.setItem('lastSubmitTime', this.lastSubmitTime);
+      this.loadStoredSequence();
     }
   }
 
