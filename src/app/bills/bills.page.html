@@ -53,29 +53,17 @@
     <ion-col>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Bảng kết quả đã nhập</ion-card-title>
-          <ion-card-subtitle>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-card-subtitle>
+          <span>{{ storedSequence }}</span>
         </ion-card-header>
-
+      </ion-card>
+      <ion-card>
         <ion-card-content>
-          <ion-text id="dataLabel">
-            <p>{{ storedSequence }}
-          </ion-text>
           <ion-row>
-            <ion-button color="primary" (click)="exportToPDF()">Tải dữ liệu</ion-button>
-            <ion-button color="danger" (click)="removeCache()">Xóa toàn bộ dữ liệu</ion-button>
-            <ion-button color="medium" (click)="removeLastEntry()">
-              Xoá lượt nhập cuối
-            </ion-button>
+            <ion-button color="medium" (click)="removeLastEntry()">Redo</ion-button>
+            <ion-button color="primary" (click)="exportToPDF()">Tải</ion-button>
+            <ion-button color="danger" (click)="removeCache()">Xóa cache</ion-button>
           </ion-row>
         </ion-card-content>
-
       </ion-card>
     </ion-col>
   </ion-row>
