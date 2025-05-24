@@ -70,6 +70,8 @@ export class BillsPage implements OnInit {
   removeCache() {
     localStorage.removeItem('storedSequence2');
     this.storedSequence = "";
+    this.mostFrequentSequence = '';
+    this.inputValue = '';
   }
 
   saveToLocalStorage() {

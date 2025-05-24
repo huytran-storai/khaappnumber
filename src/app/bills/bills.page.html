@@ -29,7 +29,7 @@
             <p>Lần thêm cuối cùng: {{ lastSubmitTime }}</p>
           </ion-text>
         </ion-card-header>
-        <ion-row>
+        <ion-row class="rs-guess">
           <ion-card>
             <ion-card-header>
               <ion-text>
@@ -38,11 +38,11 @@
                     {{ suggestion.sequence }} ({{ suggestion.count }} lần) {{ suggestion.probability }}%
                   </p>
                   <p *ngIf="mostFrequentSequence">
-                    Dự đoán: <ion-text color="success">{{ mostFrequentSequence }}</ion-text>
+                    <ion-text color="success"><ion-icon name="thumbs-up-outline"></ion-icon> {{ mostFrequentSequence }}</ion-text>
                   </p>
                 </h1>
                 <p *ngIf="!mostFrequentSequence">
-                  <ion-text color="warning">Chưa xác định được kết quả!</ion-text>
+                  <ion-text color="warning"><ion-icon name="thumbs-up-outline"></ion-icon> Chưa xác định!</ion-text>
                 </p>
               </ion-text>
             </ion-card-header>
