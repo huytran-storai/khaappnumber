@@ -93,31 +93,39 @@ export class BillsPage implements OnInit {
       const current = sequenceParts[i];
       const next = sequenceParts[i + 1];
 
-      // So khớp chính xác chuỗi nhập (đảm bảo là một phần độc lập, không dính đầu/đuôi)
       if (current === input && next) {
-        const predicted = next.substring(0, 3); // Lấy tối đa 3 ký tự đầu tiên của chuỗi tiếp theo
+        const predicted = next.substring(0, 3);
         matches[predicted] = (matches[predicted] || 0) + 1;
       }
     }
+
     const total = Object.values(matches).reduce((acc, val) => acc + val, 0);
-    // Chuyển thành danh sách và chỉ lấy những kết quả có ít nhất 1 lần
+
     this.suggestions = Object.keys(matches).map(seq => ({
       sequence: seq,
       count: matches[seq],
       probability: total > 0 ? Math.round((matches[seq] / total) * 100) : 0
     }));
 
-    // Sắp xếp theo số lần xuất hiện giảm dần
     this.suggestions.sort((a, b) => b.count - a.count);
 
-    // Gán chuỗi phổ biến nhất
-    this.mostFrequentSequence = this.suggestions.length > 0 ? this.suggestions[0].sequence : '';
-    // console.log('Most Frequent Sequence:', this.mostFrequentSequence);
-     if (total < 2 || Math.max(...this.suggestions.map(s => s.probability)) < 50) {
-    this.mostFrequentSequence = 'Xác suất tìm ra kết quả chưa khả quan.';
+    this.inputValue = '';  // Reset input sau khi submit
+
+    if (this.suggestions.length === 0) {
+      this.mostFrequentSequence = '';
+      return;
+    }
+
+    const firstProb = this.suggestions[0].probability;
+    const allSameProbability = this.suggestions.every(s => s.probability === firstProb);
+
+    if (total >= 2 && allSameProbability) {
+      this.mostFrequentSequence = 'Kết quả chưa khả quan.';
+    } else {
+      this.mostFrequentSequence = this.suggestions[0].sequence;
+    }
   }
-    this.inputValue = "";  // Reset input sau khi submit
-  }
+
 
   removeLastEntry() {
     const parts = this.storedSequence.split('-');
