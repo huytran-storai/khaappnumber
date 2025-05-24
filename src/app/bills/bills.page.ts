@@ -112,7 +112,10 @@ export class BillsPage implements OnInit {
 
     // Gán chuỗi phổ biến nhất
     this.mostFrequentSequence = this.suggestions.length > 0 ? this.suggestions[0].sequence : '';
-    console.log('Most Frequent Sequence:', this.mostFrequentSequence);
+    // console.log('Most Frequent Sequence:', this.mostFrequentSequence);
+     if (total < 2 || Math.max(...this.suggestions.map(s => s.probability)) < 50) {
+    this.mostFrequentSequence = 'Xác suất tìm ra kết quả chưa khả quan.';
+  }
     this.inputValue = "";  // Reset input sau khi submit
   }
 
